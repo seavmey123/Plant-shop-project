@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#24782C"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="32dp">
+
+    <!-- Logo / App Name -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PlanShop"
+            android:textColor="#FFFFFF"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="online view"
+            android:textColor="#A5D6A7"
+            android:textSize="14sp"
+            android:letterSpacing="0.3" />
+
+    </LinearLayout>
+
+    <!-- Get Started Button -->
+    <Button
+        android:id="@+id/btn_get_started"
+        android:layout_width="200dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/bg_btn_white_rounded"
+        android:text="Get started"
+        android:textColor="#2E7D32"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
