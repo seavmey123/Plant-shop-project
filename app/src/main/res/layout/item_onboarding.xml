@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingStart="32dp"
+    android:paddingEnd="32dp">
+
+    <!-- Illustration image — ID: iv_illustration -->
+    <ImageView
+        android:id="@+id/iv_illustration"
+        android:layout_width="280dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="40dp"
+        android:scaleType="fitCenter"
+        android:contentDescription="Illustration"
+        android:src="@drawable/ic_launcher_foreground" />
+
+    <!-- Title — ID: tv_title -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="Welcome to PlanShop"
+        android:textColor="#1B2D1C"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <!-- Subtitle — ID: tv_subtitle -->
+    <TextView
+        android:id="@+id/tv_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.5"
+        android:text="Discover thousands of products"
+        android:textColor="#78909C"
+        android:textSize="14sp" />
+
+</LinearLayout>
