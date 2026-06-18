@@ -10,8 +10,8 @@ public class ApiClient {
 
     // ✅ UPDATED: Pointing to your Mac's Wi-Fi IP address so your teammate can access it too!
     // Match your exact Wi-Fi IP address:
-    private static final String BASE_URL = "http://10.0.25.219:8888/plant_shop_api/";
-    private static Retrofit retrofit;
+// ✅ Updated to match your Mac's hotspot IP exactly
+    private static final String BASE_URL = "http://172.20.10.2:8888/plant_shop_api/";    private static Retrofit retrofit;
 
     public static Retrofit getInstance() {
         if (retrofit == null) {
