@@ -21,17 +21,19 @@ public class SplashActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_splash);
 
-        // If already logged in go straight to Main
         SessionManager session = new SessionManager(this);
+
+        // If already logged in → skip to Main
         if (session.isLoggedIn()) {
             startActivity(new Intent(this, MainActivity.class));
             finish();
             return;
         }
 
+        // Go straight to Login (no onboarding)
         Button btnGetStarted = findViewById(R.id.btn_get_started);
         btnGetStarted.setOnClickListener(v -> {
-            startActivity(new Intent(SplashActivity.this, OnboardingActivity.class));
+            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
             finish();
         });
     }

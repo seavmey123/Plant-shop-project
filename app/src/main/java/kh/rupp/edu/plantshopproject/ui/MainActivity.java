@@ -17,8 +17,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Load HomeFragment by default
-        loadFragment(new HomeFragment());
+        // Load HomeFragment first
+        if (savedInstanceState == null) {
+            loadFragment(new HomeFragment());
+        }
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setOnItemSelectedListener(item -> {
@@ -48,17 +50,5 @@ public class MainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
-    }
-
-    private class HomeFragment extends Fragment {
-    }
-
-    private class ShopFragment extends Fragment {
-    }
-
-    private class CartFragment extends Fragment {
-    }
-
-    private class ProfileFragment extends Fragment {
     }
 }

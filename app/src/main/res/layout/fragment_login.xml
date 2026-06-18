@@ -13,10 +13,11 @@
 
         <!-- Title -->
         <TextView
+            android:id="@+id/tv_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="Welcome Back"
+            android:text="Welcome back 👋"
             android:textColor="#1B5E20"
             android:textSize="28sp"
             android:textStyle="bold" />
@@ -25,41 +26,90 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="We&#8217;ve missed you buddy"
-            android:textColor="#6E6F68"
+            android:text="Sign in to continue"
+            android:textColor="#4CAF50"
             android:textSize="14sp" />
 
+        <!-- Tab Row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_tab_container"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/tab_login"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_tab_selected"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Login"
+                android:textColor="#1B5E20"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tab_register"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Register"
+                android:textColor="#64748b" />
+
+        </LinearLayout>
+
         <!-- Email -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Email"
+            android:textColor="#64748b"
+            android:textSize="12sp" />
+
         <EditText
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="6dp"
             android:background="@drawable/bg_input_green"
-            android:hint="Email"
+            android:hint="user@email.com"
             android:inputType="textEmailAddress"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textColor="#6E6F68"
-            android:textColorHint="#730E0F0E"
+            android:textColor="#1B5E20"
+            android:textColorHint="#A5D6A7"
             android:textSize="15sp" />
 
         <!-- Password -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Password"
+            android:textColor="#64748b"
+            android:textSize="12sp" />
+
         <EditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="6dp"
             android:background="@drawable/bg_input_green"
-            android:hint="Password"
+            android:hint="••••••••"
             android:inputType="textPassword"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textColor="#6E6F68"
-            android:textColorHint="#730E0F0E"
+            android:textColor="#1B5E20"
+            android:textColorHint="#A5D6A7"
             android:textSize="15sp" />
 
-        <!-- Sign In Button -->
+        <!-- Login Button -->
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
@@ -108,10 +158,6 @@
             android:layout_height="54dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/bg_btn_outline_green"
-            android:drawableStart="@drawable/ic_google"
-            android:drawablePadding="10dp"
-            android:paddingStart="20dp"
-            android:gravity="center_vertical"
             android:text="Sign In with Google"
             android:textColor="#2E7D32"
             android:textSize="15sp"
@@ -124,16 +170,12 @@
             android:layout_height="54dp"
             android:layout_marginTop="14dp"
             android:background="@drawable/bg_btn_outline_green"
-            android:drawableStart="@drawable/ic_facebook"
-            android:drawablePadding="10dp"
-            android:paddingStart="20dp"
-            android:gravity="center_vertical"
             android:text="Sign In with Facebook"
             android:textColor="#2E7D32"
             android:textSize="15sp"
             android:textStyle="bold" />
 
-        <!-- Don't have account -->
+        <!-- Already have account -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -145,14 +187,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Don&#8217;t have an account? "
-                android:textColor="#A5111211"
+                android:text="Don't have an account? "
+                android:textColor="#81C784"
                 android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tv_go_register"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Sign Up"
                 android:textColor="#1B5E20"
                 android:textSize="13sp"

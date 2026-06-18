@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="fragment_container" type="id" />
+    <item name="tab_register" type="id" />
+    <item name="tab_login" type="id" />
 </resources>
