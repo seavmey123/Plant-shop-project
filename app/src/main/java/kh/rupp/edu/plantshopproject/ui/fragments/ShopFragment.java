@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,6 @@ import kh.rupp.edu.plantshopproject.api.ApiClient;
 import kh.rupp.edu.plantshopproject.db.AppDatabase;
 import kh.rupp.edu.plantshopproject.db.CartItem;
 import kh.rupp.edu.plantshopproject.model.Plant;
-import kh.rupp.edu.plantshopproject.model.PlantResponse;
 import kh.rupp.edu.plantshopproject.ui.ProductDetailActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,11 +30,9 @@ import retrofit2.Response;
 
 public class ShopFragment extends Fragment {
 
-    private static final String API_KEY = "sk-NRCo6a2151bb5bdb517930";
-
     private RecyclerView rvProducts;
     private PlantAdapter adapter;
-    private List<Plant> allPlants = new ArrayList<>();
+    private List<Plant> allPlants = new ArrayList<>(); // Stores live MAMP items
 
     @Nullable
     @Override
@@ -54,17 +52,12 @@ public class ShopFragment extends Fragment {
         rvProducts.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         rvProducts.setAdapter(adapter);
 
-        // Search filter
+        // Live MAMP Search filter
         EditText etSearch = view.findViewById(R.id.et_search);
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int st, int c, int a) {}
             @Override public void onTextChanged(CharSequence s, int st, int b, int c) {
-                String query = s.toString().trim();
-                if (query.isEmpty()) {
-                    adapter.updateData(allPlants);
-                } else {
-                    searchPlants(query);
-                }
+                filterLocal(s.toString().trim());
             }
             @Override public void afterTextChanged(Editable s) {}
         });
@@ -74,58 +67,38 @@ public class ShopFragment extends Fragment {
             @Override public void onAddToCartClick(Plant plant) { addToCart(plant); }
         });
 
-        loadPlants();
+        loadPlantsFromMAMP();
     }
 
-    // API #2 — Load all plants
-    private void loadPlants() {
-        ApiClient.getService().getAllPlants(API_KEY, 1)
-                .enqueue(new Callback<PlantResponse>() {
-                    @Override
-                    public void onResponse(Call<PlantResponse> call,
-                                           Response<PlantResponse> response) {
-                        if (response.isSuccessful()
-                                && response.body() != null
-                                && response.body().getData() != null) {
-                            allPlants = response.body().getData();
-                            adapter.updateData(allPlants);
-                        } else {
-                            loadFakePlants();
-                        }
-                    }
+    //  CHANGED: Talk to your local database get_plants.php script instead of Perenual
+    private void loadPlantsFromMAMP() {
+        ApiClient.getService().getPlants().enqueue(new Callback<List<Plant>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<Plant>> call, @NonNull Response<List<Plant>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    allPlants = response.body();
+                    adapter.updateData(allPlants);
+                } else {
+                    Log.e("MAMP_SHOP", "Response failed, loading fallback data");
+                    loadFakePlants();
+                }
+            }
 
-                    @Override
-                    public void onFailure(Call<PlantResponse> call, Throwable t) {
-                        loadFakePlants();
-                    }
-                });
+            @Override
+            public void onFailure(@NonNull Call<List<Plant>> call, @NonNull Throwable t) {
+                Log.e("MAMP_SHOP", "Connection error: " + t.getMessage());
+                loadFakePlants();
+            }
+        });
     }
 
-    // API #3 — Search plants by name
-    private void searchPlants(String query) {
-        ApiClient.getService().searchPlants(API_KEY, query)
-                .enqueue(new Callback<PlantResponse>() {
-                    @Override
-                    public void onResponse(Call<PlantResponse> call,
-                                           Response<PlantResponse> response) {
-                        if (response.isSuccessful()
-                                && response.body() != null
-                                && response.body().getData() != null) {
-                            adapter.updateData(response.body().getData());
-                        } else {
-                            filterLocal(query);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<PlantResponse> call, Throwable t) {
-                        filterLocal(query);
-                    }
-                });
-    }
-
-    // Local filter fallback
+    // Performs live client-side filtering on your active database list
     private void filterLocal(String query) {
+        if (query.isEmpty()) {
+            adapter.updateData(allPlants);
+            return;
+        }
+
         List<Plant> filtered = new ArrayList<>();
         for (Plant p : allPlants) {
             if (p.getCommonName() != null &&
@@ -136,25 +109,13 @@ public class ShopFragment extends Fragment {
         adapter.updateData(filtered);
     }
 
-    // Fake data when no internet
+    // Kept as an offline error fallback list
     private void loadFakePlants() {
         List<Plant> fakePlants = new ArrayList<>();
-        fakePlants.add(createFakePlant(1, "Monstera Deliciosa", "Perennial", "Average",
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Monstera_deliciosa3.jpg/800px-Monstera_deliciosa3.jpg"));
-        fakePlants.add(createFakePlant(2, "Snake Plant", "Perennial", "Minimum",
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Sansevieria_trifasciata_%27Laurentii%27.jpg/800px-Sansevieria_trifasciata_%27Laurentii%27.jpg"));
-        fakePlants.add(createFakePlant(3, "Peace Lily", "Perennial", "Average",
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Spathiphyllum_cochlearispathum_RTBG.jpg/800px-Spathiphyllum_cochlearispathum_RTBG.jpg"));
-        fakePlants.add(createFakePlant(4, "Pothos", "Perennial", "Average",
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Epipremnum_aureum_31082012.jpg/800px-Epipremnum_aureum_31082012.jpg"));
-        fakePlants.add(createFakePlant(5, "Fiddle Leaf Fig", "Perennial", "Average",
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Ficus_lyrata.jpg/800px-Ficus_lyrata.jpg"));
-        fakePlants.add(createFakePlant(6, "Aloe Vera", "Perennial", "Minimum",
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Aloe_vera_flower_inset.png/800px-Aloe_vera_flower_inset.png"));
-        fakePlants.add(createFakePlant(7, "ZZ Plant", "Perennial", "Minimum",
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Zamioculcas_zamiifolia.jpg/800px-Zamioculcas_zamiifolia.jpg"));
-        fakePlants.add(createFakePlant(8, "Rubber Plant", "Perennial", "Average",
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Ficus_elastica_for_the_web.JPG/800px-Ficus_elastica_for_the_web.JPG"));
+        fakePlants.add(createFakePlant(1, "Monstera Deliciosa", "Perennial", "Average", null));
+        fakePlants.add(createFakePlant(2, "Snake Plant", "Perennial", "Minimum", null));
+        fakePlants.add(createFakePlant(3, "Peace Lily", "Perennial", "Average", null));
+        fakePlants.add(createFakePlant(4, "Pothos", "Perennial", "Average", null));
 
         allPlants = fakePlants;
         adapter.updateData(fakePlants);
@@ -172,22 +133,23 @@ public class ShopFragment extends Fragment {
     }
 
     private void openDetail(Plant plant) {
+        String finalImg = (plant.getDefaultImage() != null) ? plant.getDefaultImage().getMediumUrl() : plant.getImageUrl();
+
         Intent intent = new Intent(requireContext(), ProductDetailActivity.class);
         intent.putExtra("product_id",     plant.getId());
         intent.putExtra("product_title",  plant.getCommonName());
         intent.putExtra("product_price",  12.00);
-        intent.putExtra("product_image",  plant.getImageUrl());
-        intent.putExtra("product_desc",
-                "Watering: " + plant.getWatering()
-                        + "\nSunlight: " + plant.getSunlight()
-                        + "\nCycle: " + plant.getCycle());
+        intent.putExtra("product_image",  finalImg);
+        intent.putExtra("product_desc",   "Cycle: " + plant.getCycle());
         intent.putExtra("product_cat",    plant.getCycle());
-        intent.putExtra("product_rating", 4.0f);
-        intent.putExtra("product_reviews", 50);
+        intent.putExtra("product_rating", 4.5f);
+        intent.putExtra("product_reviews", 18);
         startActivity(intent);
     }
 
     private void addToCart(Plant plant) {
+        String finalImg = (plant.getDefaultImage() != null) ? plant.getDefaultImage().getMediumUrl() : plant.getImageUrl();
+
         new Thread(() -> {
             AppDatabase db = AppDatabase.getInstance(requireContext());
             CartItem existing = db.cartDao().getItemById(plant.getId());
@@ -199,7 +161,7 @@ public class ShopFragment extends Fragment {
                         plant.getId(),
                         plant.getCommonName(),
                         12.00,
-                        plant.getImageUrl(),
+                        finalImg,
                         plant.getCycle(),
                         1
                 ));
