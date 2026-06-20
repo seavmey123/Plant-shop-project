@@ -116,6 +116,7 @@
             android:layout_height="54dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/bg_btn_green"
+            android:backgroundTint="@null"
             android:text="Sign In"
             android:textColor="#FFFFFF"
             android:textSize="16sp"

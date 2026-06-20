@@ -1,10 +1,25 @@
 <resources>
     <style name="Theme.PlantshopProject"
-        parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <item name="colorPrimary">#2E7D32</item>
+        <item name="colorPrimaryVariant">#1B5E20</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">#2E7D32</item>
+        <item name="colorSecondaryVariant">#1B5E20</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <item name="android:statusBarColor">#1B5E20</item>
     </style>
 
-    <!-- Add this -->
     <style name="Theme.PlantshopProject.NoActionBar"
         parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <item name="colorPrimary">#2E7D32</item>
+        <item name="colorPrimaryVariant">#1B5E20</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">#2E7D32</item>
+        <item name="colorSecondaryVariant">#1B5E20</item>
+        <item name="colorOnSecondary">@color/black</item>
     </style>
 </resources>
