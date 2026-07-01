@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:cardBackgroundColor="#D7F0D3"
+    app:cardBackgroundColor="#DDFFE3"
     app:cardCornerRadius="16dp"
     app:cardElevation="0dp">
 
@@ -13,9 +13,10 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
+        <!-- Left Content -->
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="159dp"
+            android:layout_height="144dp"
             android:layout_centerVertical="true"
             android:orientation="vertical">
 
@@ -30,7 +31,7 @@
 
             <TextView
                 android:id="@+id/tv_banner_sub"
-                android:layout_width="180dp"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:lineSpacingMultiplier="1.4"
@@ -47,19 +48,24 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="Shop Now"
+                android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_banner_img"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+        <!-- Right Image -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_banner"
+            android:layout_width="178dp"
+            android:layout_height="174dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_outdoor_plant"
-            android:contentDescription="Banner" />
+            android:layout_marginEnd="4dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/banner_1"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.MediumComponent"/>
 
     </RelativeLayout>
+
 </androidx.cardview.widget.CardView>

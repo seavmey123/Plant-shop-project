@@ -81,7 +81,7 @@
                 android:layout_height="32dp"
                 android:background="@drawable/bg_btn_green"
                 android:padding="8dp"
-                android:src="@drawable/ic_plus_white"
+                android:src="@android:drawable/ic_input_add"
                 android:contentDescription="Add to cart" />
         </LinearLayout>
 

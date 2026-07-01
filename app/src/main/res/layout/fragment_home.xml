@@ -141,10 +141,10 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vp_banner"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="195dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp" />
 
             <!-- Banner dots -->
             <LinearLayout
@@ -244,7 +244,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_outdoor_plant"
+                            android:src="@drawable/indooe"
                             android:contentDescription="Outdoor" />
                     </FrameLayout>
 
@@ -276,7 +276,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_outdoor_plant"
+                            android:src="@drawable/pots"
                             android:contentDescription="Pots" />
                     </FrameLayout>
 
@@ -308,7 +308,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_outdoor_plant"
+                            android:src="@drawable/tools"
                             android:contentDescription="Tools" />
                     </FrameLayout>
 
